@@ -1,25 +1,52 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Fragment, useState} from 'react';
+import Header from './components/Header'
+import Producto from './components/Producto'
+import Carrito from './components/Carrito'
+import Footer from './components/Footer'
+
 
 function App() {
+
+  const [productos, guardarProductos] = useState([
+    {id: 1, nombre:'Camisa React Js', precio: 50},
+    {id: 2, nombre:'Camisa Java', precio: 60},
+    {id: 3, nombre:'Camisa JavaScript', precio: 70},
+    {id: 4, nombre:'Camisa Angular', precio: 80},
+    {id: 5, nombre:'Camisa Webpack', precio: 90},
+  ])
+
+  // Sate para un carrito de compras
+  const [carrito, agregarProducto] = useState([])
+
+
+  const fecha = new Date().getFullYear() // me devueve el año actual
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Fragment>
+      <Header 
+        titulo = 'Tienda Virtual'
+      />
+
+      <h1>Lista de Productos</h1>
+      {productos.map(producto =>(
+        <Producto 
+          key = {producto.id}
+          producto = {producto}
+          carrito = {carrito}
+          agregarProducto = {agregarProducto}
+          productos = {productos}
+        />
+      ))}
+
+      <Carrito 
+        carrito = {carrito}
+        agregarProducto = {agregarProducto}
+      />
+
+      <Footer 
+        fecha = {fecha}
+      />
+    </Fragment>
   );
 }
 
